@@ -1,0 +1,83 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: DroneDeploy GraphQL API — Plans
+  description: 'Naftiko capability for the DroneDeploy GraphQL API Plans surface. Wraps the POST /graphql endpoint
+    and exposes a listPlans operation that returns the organization plans connection (cursor pagination).'
+  tags:
+  - DroneDeploy
+  - GraphQL
+  - Plans
+  - MapPlan
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    DRONEDEPLOY_API_KEY: DRONEDEPLOY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: graphql-plans
+    baseUri: https://www.dronedeploy.com
+    description: DroneDeploy GraphQL endpoint scoped to plan listing queries.
+    resources:
+    - name: graphql
+      path: /graphql
+      operations:
+      - name: listplans
+        method: POST
+        description: DroneDeploy List Organization Plans
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: GraphQL request body. Recommended query fetches viewer.organization.plans with pageInfo
+            (hasNextPage, endCursor) and edges (cursor, node { id name geometry location dateCreation }).
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: 'Bearer {{env.DRONEDEPLOY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: graphql-plans-rest
+    port: 8080
+    description: REST adapter for DroneDeploy Plans queries.
+    resources:
+    - path: /v1/plans
+      name: plans
+      description: REST surface for plan listing.
+      operations:
+      - method: POST
+        name: listplans
+        description: DroneDeploy List Organization Plans
+        call: graphql-plans.listplans
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: graphql-plans-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter exposing one tool for plan listing.
+    tools:
+    - name: dronedeploy-list-plans
+      description: DroneDeploy List Organization Plans
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graphql-plans.listplans
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

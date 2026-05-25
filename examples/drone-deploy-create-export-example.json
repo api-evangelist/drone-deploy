@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://www.dronedeploy.com/graphql",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer YOUR_DRONEDEPLOY_API_KEY"
+    },
+    "body": {
+      "query": "mutation CreateExport($input: CreateExportInput!) { createExport(input: $input) { export { id } } }",
+      "variables": {
+        "input": {
+          "planId": "MapPlan:5a0ddee5a6b7d90aecdc2f1d",
+          "parameters": {
+            "layer": "ORTHOMOSAIC",
+            "fileFormat": "GEOTIFF",
+            "projection": "EPSG:3857",
+            "resolution": 5
+          }
+        }
+      }
+    }
+  },
+  "response": {
+    "data": {
+      "createExport": {
+        "export": {
+          "id": "Export:5ab169ed8904ec000136eac9"
+        }
+      }
+    }
+  }
+}

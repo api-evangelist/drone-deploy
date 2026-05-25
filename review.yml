@@ -1,0 +1,53 @@
+provider: DroneDeploy
+providerId: drone-deploy
+reviewer: API Evangelist
+reviewedBy: Kin Lane
+date: '2026-05-25'
+tier: 1
+tierRationale: >
+  Tier 1. DroneDeploy publishes a live, production GraphQL API at https://www.dronedeploy.com/graphql with a
+  strongly-typed schema, Relay-style cursor pagination, bearer-token authentication, hosted GraphiQL explorer,
+  and a dedicated developer documentation site (developer-docs.dronedeploy.com) covering authentication,
+  pagination, and concrete read/mutation examples (viewer, plans, exports, createExport). The platform also
+  exposes a third-party Apps platform with OAuth2 templates and a 40+ partner App Market spanning Procore,
+  Autodesk Construction Cloud, ArcGIS, and major cloud-storage providers.
+scores:
+  documentation: 4
+  apiDesign: 4
+  apiCoverage: 4
+  developerExperience: 3
+  ecosystem: 5
+  governance: 3
+  pricingTransparency: 3
+  operationalMaturity: 4
+strengths:
+  - Real GraphQL API with strongly-typed schema and Relay-style cursor pagination.
+  - Hosted GraphiQL explorer at /graphiql for live schema introspection by signed-in users.
+  - Clean developer documentation site with concrete viewer, plans, and exports examples.
+  - Mature App Market with 40+ named partners across construction, agriculture, GIS, and cloud storage.
+  - Open-source helper libraries (flight-log-parser, function-wrapper, oauth-function-template, app-examples).
+  - Status page at status.dronedeploy.com with per-component uptime history.
+  - Strong customer roster (Turner, Skanska, PCL, Rio Tinto, BP) and 3M+ active sites.
+weaknesses:
+  - API keys are not self-service; existing developers must contact Support and new ones must engage Sales.
+  - No public rate-limit numbers in developer docs; quotas are governed by the contractual Fair Use Policy.
+  - No published OpenAPI / GraphQL SDL download; consumers must rely on GraphiQL introspection.
+  - Apps platform documentation is sparse beyond the four GitHub helper repos.
+  - Most plan pricing is annual-only and quote-based above the entry tiers; no transparent enterprise pricing.
+recommendations:
+  - Publish a downloadable GraphQL SDL file alongside the GraphiQL explorer.
+  - Document numeric per-key rate limits, throttle response headers, and 429 retry semantics.
+  - Offer self-service API key issuance for trial / developer accounts.
+  - Expand developer-docs.dronedeploy.com to cover the Apps platform end-to-end (manifest, OAuth scopes, lifecycle).
+  - Publish a Postman or Insomnia collection for the common queries (viewer, plans, exports, createExport).
+links:
+  api:
+    - https://developer-docs.dronedeploy.com/api/introduction
+    - https://www.dronedeploy.com/graphql
+    - https://www.dronedeploy.com/graphiql/
+  apps:
+    - https://developer-docs.dronedeploy.com/dronedeploy-apps
+    - https://www.dronedeploy.com/product/market
+  pricing: https://www.dronedeploy.com/pricing
+  status: https://status.dronedeploy.com
+  github: https://github.com/dronedeploy

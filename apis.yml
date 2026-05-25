@@ -1,0 +1,257 @@
+aid: drone-deploy
+url: https://raw.githubusercontent.com/api-evangelist/drone-deploy/refs/heads/main/apis.yml
+name: DroneDeploy
+apis:
+- aid: drone-deploy:drone-deploy-graphql-api
+  name: DroneDeploy GraphQL API
+  tags:
+  - Drones
+  - Reality Capture
+  - Mapping
+  - GraphQL
+  - Plans
+  - Exports
+  humanURL: https://developer-docs.dronedeploy.com/api/introduction
+  baseURL: https://www.dronedeploy.com/graphql
+  properties:
+  - url: https://developer-docs.dronedeploy.com/api/introduction
+    type: Documentation
+  - url: https://developer-docs.dronedeploy.com/api/authentication
+    type: Authentication
+  - url: https://developer-docs.dronedeploy.com/api/pagination
+    type: Documentation
+  - url: https://www.dronedeploy.com/graphiql/
+    type: Sandbox
+  - url: openapi/drone-deploy-graphql-api-openapi.yml
+    type: OpenAPI
+  - url: json-schema/drone-deploy-plan-schema.json
+    type: JSONSchema
+  - url: json-schema/drone-deploy-export-schema.json
+    type: JSONSchema
+  - url: json-ld/drone-deploy-context.jsonld
+    type: JSONLD
+  - type: NaftikoCapability
+    url: capabilities/graphql-plans.yaml
+  - type: NaftikoCapability
+    url: capabilities/graphql-exports.yaml
+  - type: NaftikoCapability
+    url: capabilities/graphql-viewer.yaml
+  description: DroneDeploy's GraphQL API is the primary programmatic interface for the DroneDeploy reality-capture
+    platform. A single POST endpoint at https://www.dronedeploy.com/graphql exposes a strongly-typed schema rooted
+    at the `viewer` object that gives the authenticated user access to organizations, plans (MapPlan and other
+    Plan variants), exports, layers, geometry, and processing status. Forward, cursor-based pagination via
+    Relay-style edges/nodes/pageInfo. Authenticated with `Authorization Bearer` API keys obtained from
+    DroneDeploy Support or via a Developer Partner / Enterprise account.
+- aid: drone-deploy:drone-deploy-apps-platform
+  name: DroneDeploy Apps Platform
+  tags:
+  - Apps
+  - Marketplace
+  - OAuth
+  - Extensions
+  humanURL: https://developer-docs.dronedeploy.com/introduction/overview
+  properties:
+  - url: https://developer-docs.dronedeploy.com/introduction/overview
+    type: Documentation
+  - url: https://www.dronedeploy.com/product/market
+    type: AppMarket
+  - url: https://github.com/dronedeploy/app-examples
+    type: CodeRepository
+  - url: https://github.com/dronedeploy/oauth-function-template
+    type: CodeRepository
+  - url: https://github.com/dronedeploy/function-wrapper
+    type: SDK
+  description: The DroneDeploy Apps Platform lets third parties build embedded apps and serverless "functions"
+    that run inside the DroneDeploy web application and the DroneDeploy App Market. Apps consume the GraphQL API
+    on behalf of the signed-in user, can register OAuth2 flows via the oauth-function-template, and are surfaced
+    in the App Market across construction, agriculture, mining, utilities, and renewable energy verticals.
+- aid: drone-deploy:drone-deploy-flight-log-parser
+  name: DroneDeploy Flight Log Parser
+  tags:
+  - SDK
+  - Flight Logs
+  - Telemetry
+  humanURL: https://github.com/dronedeploy/flight-log-parser
+  properties:
+  - url: https://github.com/dronedeploy/flight-log-parser
+    type: CodeRepository
+  - url: https://www.npmjs.com/package/flight-log-parser
+    type: SDK
+  description: Open-source JavaScript/TypeScript library for parsing DroneDeploy flight log files (the .csv/.json
+    telemetry files emitted by the DroneDeploy Flight App). MIT-licensed, maintained on GitHub.
+tags:
+- Drones
+- Reality Capture
+- Mapping
+- Photogrammetry
+- 3D Models
+- Orthomosaic
+- LiDAR
+- Construction
+- Agriculture
+- AI
+- Aerial
+- Robotics
+kind: contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+common:
+- type: Portal
+  url: https://www.dronedeploy.com
+- type: Documentation
+  url: https://developer-docs.dronedeploy.com/
+- type: Documentation
+  url: https://developer-docs.dronedeploy.com/dronedeploy-apps
+- type: Documentation
+  url: https://developer-docs.dronedeploy.com/api/introduction
+- type: Sandbox
+  url: https://www.dronedeploy.com/graphiql/
+- type: StatusPage
+  url: https://status.dronedeploy.com
+- type: SignUp
+  url: https://www.dronedeploy.com/get-started
+- type: Login
+  url: https://www.dronedeploy.com/app2/auth/signin
+- type: Support
+  url: https://help.dronedeploy.com/hc/en-us
+- type: TermsOfService
+  url: https://www.dronedeploy.com/legal/master-services-agreement
+- type: PrivacyPolicy
+  url: https://www.dronedeploy.com/legal/privacy
+- type: Blog
+  url: https://www.dronedeploy.com/blog
+- type: Careers
+  url: https://www.dronedeploy.com/about/careers
+- type: AboutUs
+  url: https://www.dronedeploy.com/about
+- type: GitHubOrganization
+  url: https://github.com/dronedeploy
+- type: AppMarket
+  url: https://www.dronedeploy.com/product/market
+- type: LinkedIn
+  url: https://www.linkedin.com/company/dronedeploy
+- type: X
+  url: https://twitter.com/dronedeploy
+- type: YouTube
+  url: https://www.youtube.com/c/DroneDeploy
+- url: https://www.dronedeploy.com/pricing
+  data:
+  - id: flight-and-analysis
+    name: Flight & Analysis
+    entries:
+    - geo: US
+      unit: 1
+      label: Pilot
+      limit: 1
+      price: 4188
+      metric: user
+      timeFrame: year
+      description: Single admin user license; upload up to 3,000 images per map; email and live chat support.
+    elements:
+    - name: Single admin user license
+    - name: Upload up to 3,000 images per map
+    - name: Email and live chat support
+    - name: Ground capture processing not included
+    description: For individual drone pilots running aerial flights and surveys.
+  - id: ag-lite
+    name: Ag Lite
+    entries:
+    - geo: US
+      unit: 1
+      label: Pilot
+      limit: 1
+      price: 1908
+      metric: user
+      timeFrame: year
+      description: Single pilot license; upload up to 1,000 images per map; Stand Count and Live Map; email support.
+    elements:
+    - name: Single pilot license
+    - name: Upload up to 1,000 images per map
+    - name: Stand Count analysis
+    - name: Live Map
+    - name: Email-based support
+    description: Entry plan for agriculture pilots.
+  - id: advanced-flight-and-analysis
+    name: Advanced Flight & Analysis
+    entries:
+    - geo: US
+      unit: 1
+      label: Organization
+      limit: 1
+      price: Call
+      metric: organization
+      timeFrame: year
+      description: Custom pricing. 10,000 image upload per map; cut/fill, thermal, vertical inspections.
+    elements:
+    - name: 10,000 image upload per map
+    - name: Cut/fill analysis
+    - name: Thermal imaging
+    - name: Vertical inspections
+    description: For larger commercial flight operations needing advanced analytics.
+  - id: unified
+    name: DroneDeploy Unified
+    entries:
+    - geo: US
+      unit: 1
+      label: Organization
+      limit: 1
+      price: Call
+      metric: organization
+      timeFrame: year
+      description: Enterprise plan unifying aerial, ground, robotics, fixed cameras, and AI add-ons.
+    elements:
+    - name: Aerial + Ground + Robotics
+    - name: 360 cameras, fixed cameras, smartphones
+    - name: Progress AI, Safety AI, Earthworks AI add-ons
+    - name: Dock Automation and Robotic Automation add-ons
+    - name: DroneDeploy Firewall data security add-on
+    description: Enterprise unified reality-capture platform; pricing on request.
+  name: Plans
+  type: Plans
+- type: Trial
+  url: https://www.dronedeploy.com/get-started
+- url: plans/drone-deploy-plans-pricing.yml
+  type: Plans
+- url: rate-limits/drone-deploy-rate-limits.yml
+  type: RateLimits
+- url: finops/drone-deploy-finops.yml
+  type: FinOps
+- type: Features
+  data:
+  - DroneDeploy Aerial — automated drone flight, photogrammetry, orthomosaic, 3D models, design overlays
+  - DroneDeploy Ground — 360 walks, mobile 3D scanning, LiDAR, 8K imagery, BIM overlays
+  - DroneDeploy Robotics — dock automation and industrial inspection with Boston Dynamics and DJI Dock
+  - Progress AI — automated schedule and progress tracking from reality capture
+  - Safety AI — visual hazard detection ranked by severity
+  - Earthworks AI — cut/fill volumetrics and earthworks progress
+  - GraphQL API at https://www.dronedeploy.com/graphql with strongly-typed schema and Relay-style cursor pagination
+  - GraphiQL interactive explorer at https://www.dronedeploy.com/graphiql/
+  - Apps Platform with OAuth2 templates and serverless function model
+  - DroneDeploy App Market with 40+ integration partners (Procore, Autodesk Construction Cloud, ArcGIS, S3,
+    Google Drive, OneDrive, Box, Azure, Climate FieldView)
+  - 14-day free trial, no credit card required
+  - Operates across 3M+ sites in 180 countries; 2.8B+ images processed
+  sources:
+  - https://developer-docs.dronedeploy.com/api/introduction
+  - https://developer-docs.dronedeploy.com/api/authentication
+  - https://www.dronedeploy.com/pricing
+  - https://www.dronedeploy.com/product/market
+  - https://status.dronedeploy.com
+  updated: '2026-05-25'
+created: '2026-05-25'
+modified: '2026-05-25'
+position: Consuming
+description: DroneDeploy is the unified reality-capture platform for construction, agriculture, mining, energy,
+  oil & gas, and inspection workflows. Founded in 2013 and headquartered in San Francisco, DroneDeploy combines
+  aerial drone mapping, ground 360 capture, robotics (DJI Dock, Boston Dynamics Spot), and vision-language AI
+  (Progress AI, Safety AI, Earthworks AI) into a single platform that operates across 3M+ sites in 180 countries
+  and has processed 2.8B+ images. Developers integrate via a GraphQL API at https://www.dronedeploy.com/graphql,
+  an Apps Platform with OAuth2 templates that embed third-party apps into the DroneDeploy web application, and
+  a 40+ partner App Market spanning construction (Procore, Autodesk Construction Cloud, PlanGrid), GIS (ArcGIS,
+  Mapbox), cloud storage (S3, Google Drive, OneDrive, Box, Azure), and agriculture (Climate FieldView).
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
+specificationVersion: '0.16'

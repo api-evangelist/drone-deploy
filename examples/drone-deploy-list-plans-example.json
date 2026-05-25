@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://www.dronedeploy.com/graphql",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer YOUR_DRONEDEPLOY_API_KEY"
+    },
+    "body": {
+      "query": "query GetPlans { viewer { organization { plans(first: 50) { pageInfo { hasNextPage endCursor } edges { cursor node { id name geometry { lat lng } location { lat lng } dateCreation } } } } } }"
+    }
+  },
+  "response": {
+    "data": {
+      "viewer": {
+        "organization": {
+          "plans": {
+            "pageInfo": {
+              "hasNextPage": true,
+              "endCursor": "YXJyYXljb25uZWN0aW9uOjQ5"
+            },
+            "edges": [
+              {
+                "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+                "node": {
+                  "id": "MapPlan:5a0ddee5a6b7d90aecdc2f1d",
+                  "name": "Northgate Tower - Foundations Q2",
+                  "geometry": { "lat": 37.7749, "lng": -122.4194 },
+                  "location": { "lat": 37.7749, "lng": -122.4194 },
+                  "dateCreation": "2026-04-18T14:23:11Z"
+                }
+              },
+              {
+                "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+                "node": {
+                  "id": "MapPlan:5a0ddee5a6b7d90aecdc2f22",
+                  "name": "Field 17 - Stand Count May",
+                  "geometry": { "lat": 41.6611, "lng": -91.5302 },
+                  "location": { "lat": 41.6611, "lng": -91.5302 },
+                  "dateCreation": "2026-05-02T09:12:44Z"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

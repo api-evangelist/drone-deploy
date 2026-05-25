@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: DroneDeploy GraphQL API — Exports
+  description: 'Naftiko capability for the DroneDeploy GraphQL API Exports surface. Wraps the POST /graphql
+    endpoint with two operations: listExports (read the exports connection on a MapPlan) and createExport
+    (mutation that triggers an export for a specified layer such as ORTHOMOSAIC).'
+  tags:
+  - DroneDeploy
+  - GraphQL
+  - Exports
+  - MapPlan
+  - Orthomosaic
+  created: '2026-05-25'
+  modified: '2026-05-25'
+binds:
+- namespace: env
+  keys:
+    DRONEDEPLOY_API_KEY: DRONEDEPLOY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: graphql-exports
+    baseUri: https://www.dronedeploy.com
+    description: DroneDeploy GraphQL endpoint scoped to export read and write operations.
+    resources:
+    - name: graphql
+      path: /graphql
+      operations:
+      - name: listexports
+        method: POST
+        description: DroneDeploy List Exports For A MapPlan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: GraphQL request body. Recommended query uses node(id MapPlan-id) with an inline MapPlan
+            fragment and the exports connection returning id, user.username, parameters (projection, merge,
+            contourInterval, fileFormat, resolution), status, dateCreation, downloadPath.
+          required: true
+      - name: createexport
+        method: POST
+        description: DroneDeploy Create An Export
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: GraphQL request body invoking the createExport mutation. Required input fields are
+            planId (e.g. MapPlan:abcdef...) and parameters.layer (ORTHOMOSAIC, ELEVATION, etc.).
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: 'Bearer {{env.DRONEDEPLOY_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: graphql-exports-rest
+    port: 8080
+    description: REST adapter for DroneDeploy export operations.
+    resources:
+    - path: /v1/exports
+      name: exports
+      description: REST surface for export read and write.
+      operations:
+      - method: POST
+        name: listexports
+        description: DroneDeploy List Exports For A MapPlan
+        call: graphql-exports.listexports
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createexport
+        description: DroneDeploy Create An Export
+        call: graphql-exports.createexport
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: graphql-exports-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter exposing tools for export listing and creation.
+    tools:
+    - name: dronedeploy-list-exports
+      description: DroneDeploy List Exports For A MapPlan
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graphql-exports.listexports
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: dronedeploy-create-export
+      description: DroneDeploy Create An Export
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: graphql-exports.createexport
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

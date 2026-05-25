@@ -1,0 +1,61 @@
+extends:
+  - [spectral:oas, recommended]
+
+documentationUrl: https://github.com/api-evangelist/drone-deploy
+
+rules:
+  dronedeploy-graphql-single-endpoint:
+    description: DroneDeploy exposes a single GraphQL endpoint at /graphql; no other REST paths should appear.
+    severity: error
+    given: $.paths
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - /graphql
+          maxProperties: 1
+
+  dronedeploy-graphql-post-only:
+    description: The /graphql endpoint must only support POST.
+    severity: error
+    given: $.paths['/graphql']
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - post
+          properties:
+            get: { not: {} }
+            put: { not: {} }
+            delete: { not: {} }
+            patch: { not: {} }
+
+  dronedeploy-bearer-auth:
+    description: Security must use BearerAuth (Authorization Bearer API key).
+    severity: error
+    given: $.components.securitySchemes
+    then:
+      field: BearerAuth
+      function: truthy
+
+  dronedeploy-operation-summary-title-case:
+    description: All operation summaries should be Title Case and begin with "DroneDeploy".
+    severity: warn
+    given: $.paths..post.summary
+    then:
+      function: pattern
+      functionOptions:
+        match: '^DroneDeploy(\s+[A-Z][a-zA-Z0-9]*)+$|^Execute GraphQL Operation$'
+
+  dronedeploy-request-includes-graphql-query:
+    description: Every operation's request body should reference the GraphQLRequest schema.
+    severity: warn
+    given: $.paths..post.requestBody.content['application/json'].schema['$ref']
+    then:
+      function: pattern
+      functionOptions:
+        match: '#/components/schemas/GraphQLRequest$'

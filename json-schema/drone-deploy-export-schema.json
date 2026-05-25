@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/drone-deploy/main/json-schema/drone-deploy-export-schema.json",
+  "title": "DroneDeploy Export",
+  "description": "Schema describing a DroneDeploy Export as returned by the GraphQL API (exports connection on a MapPlan, and the createExport mutation payload).",
+  "type": "object",
+  "required": ["id", "status", "parameters"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Opaque global GraphQL ID. Example: Export:5ab169ed8904ec000136eac9."
+    },
+    "user": {
+      "type": "object",
+      "description": "User who initiated the export.",
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "parameters": {
+      "$ref": "#/$defs/ExportParameters"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["PROCESSING", "COMPLETE", "FAILED"],
+      "description": "Current export status."
+    },
+    "dateCreation": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "downloadPath": {
+      "type": ["string", "null"],
+      "description": "Populated when status is COMPLETE; null while processing."
+    }
+  },
+  "$defs": {
+    "ExportParameters": {
+      "type": "object",
+      "required": ["layer"],
+      "properties": {
+        "layer": {
+          "type": "string",
+          "enum": ["ORTHOMOSAIC", "ELEVATION", "PLANT_HEALTH", "POINT_CLOUD", "CONTOUR", "REPORT"],
+          "description": "Required input. The data layer to export."
+        },
+        "projection": {
+          "type": "string",
+          "description": "Coordinate reference system (e.g. EPSG:4326, EPSG:3857)."
+        },
+        "merge": {
+          "type": "boolean",
+          "description": "When multiple tiles exist, whether to merge into a single output file."
+        },
+        "contourInterval": {
+          "type": "number",
+          "description": "Elevation contour interval (meters or feet, depending on plan settings)."
+        },
+        "fileFormat": {
+          "type": "string",
+          "description": "Output file format (GEOTIFF, PDF, SHP, LAS, etc.)."
+        },
+        "resolution": {
+          "type": "number",
+          "description": "Ground sample distance / output resolution in cm/pixel."
+        }
+      }
+    }
+  }
+}

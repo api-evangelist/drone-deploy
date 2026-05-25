@@ -1,0 +1,85 @@
+vocabulary: DroneDeploy
+provider: DroneDeploy
+providerId: drone-deploy
+created: '2026-05-25'
+modified: '2026-05-25'
+description: Domain vocabulary and dimensional taxonomy for DroneDeploy's reality-capture platform.
+dimensions:
+  operational:
+    - id: capture-modality
+      name: Capture Modality
+      values:
+        - Aerial Drone
+        - Ground 360 Camera
+        - Mobile LiDAR
+        - Fixed Site Camera
+        - Robotic Ground (Spot)
+        - Smartphone
+    - id: industry
+      name: Industry
+      values:
+        - Construction
+        - Agriculture
+        - Mining
+        - Utilities
+        - Oil and Gas
+        - Renewable Energy
+        - Data Centers
+        - Property Management
+        - Real Estate
+    - id: output-layer
+      name: Output Layer
+      values:
+        - Orthomosaic
+        - Elevation
+        - Plant Health
+        - Point Cloud
+        - Contour
+        - Report
+    - id: integration-category
+      name: Integration Category
+      values:
+        - Cloud Storage
+        - Mapping and GIS
+        - Construction Management
+        - Agriculture Management
+        - Inspection
+        - Drone Insurance
+        - Flight Planning
+  capability:
+    - id: api-protocol
+      name: API Protocol
+      values:
+        - GraphQL
+    - id: ai-feature
+      name: AI Feature
+      values:
+        - Progress AI
+        - Safety AI
+        - Earthworks AI
+        - Stand Count
+        - Live Map
+    - id: automation
+      name: Automation
+      values:
+        - DJI Dock Automation
+        - Robotic Automation
+        - Auto Flight Modes
+        - Walk Flight Planning
+terms:
+  - term: Plan
+    definition: Top-level container for a flight, walk, or capture mission and its derived outputs.
+  - term: MapPlan
+    definition: A Plan specialization holding aerial photogrammetry results — orthomosaic, elevation, point cloud.
+  - term: Export
+    definition: A user-triggered job that materialises a Plan's layer into a downloadable file (GeoTIFF, SHP, etc.).
+  - term: Layer
+    definition: A specific data product derived from a Plan (Orthomosaic, Elevation, Plant Health, Point Cloud, Contour, Report).
+  - term: Site
+    definition: A real-world location grouping multiple Plans over time for progress tracking.
+  - term: Construction Volume
+    definition: Usage Metric in the Master Services Agreement quantifying construction throughput billed under the Unified plan.
+  - term: Walk
+    definition: A 360-camera or LiDAR ground capture session; the Ground equivalent of an aerial flight.
+  - term: Viewer
+    definition: GraphQL root field returning the currently authenticated user and organization context.

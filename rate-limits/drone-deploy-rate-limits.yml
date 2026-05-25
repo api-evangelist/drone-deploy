@@ -1,0 +1,43 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: DroneDeploy
+providerId: drone-deploy
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - Drones
+  - GraphQL
+  - Reality Capture
+description: DroneDeploy does not publish public rate-limit numbers in its developer documentation. The
+  GraphQL endpoint at https://www.dronedeploy.com/graphql is fronted by Cloudflare and accessed through
+  bearer-token API keys issued by DroneDeploy Support or Sales. Practical limits are tied to the underlying
+  subscription's Construction Volume / Sites / Users metric and the Fair Use Policy in the Master Services
+  Agreement. Quotas observed in the App Market function-execution environment are documented separately
+  per app. This file captures what is publicly stated; reconcile with the issued contract for hard limits.
+sources:
+  - https://developer-docs.dronedeploy.com/api/introduction
+  - https://developer-docs.dronedeploy.com/api/authentication
+  - https://www.dronedeploy.com/legal/master-services-agreement
+algorithm: undocumented
+headers:
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: retry-after
+responseCodes:
+  throttled: 429
+  forbidden: 403
+limits:
+  - tier: Per API Key
+    scope: All GraphQL operations
+    rpm: undocumented
+    description: DroneDeploy has not published a numeric per-key request-per-minute limit. Heavy usage is
+      governed by the Fair Use Policy and contractual Usage Metrics (Users, Sites, Construction Volume).
+fairUse:
+  policy: >
+    The DroneDeploy Master Services Agreement establishes a Fair Use Policy that prevents circumventing
+    subscriber, site, or volume limits via the API. Verification procedures apply for Construction Volume
+    utilization.
+  reference: https://www.dronedeploy.com/legal/master-services-agreement

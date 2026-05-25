@@ -1,0 +1,162 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: DroneDeploy
+providerId: drone-deploy
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - Drones
+  - Reality Capture
+  - Construction
+  - Agriculture
+description: 'Reconciled plans and pricing for the DroneDeploy reality-capture platform. Source: dronedeploy.com/pricing.
+  Headline plans are annual, billed-up-front; the Unified and Advanced plans are quote-based.'
+sources:
+  - https://www.dronedeploy.com/pricing
+  - https://www.dronedeploy.com/legal/master-services-agreement
+trial:
+  available: true
+  durationDays: 14
+  creditCardRequired: false
+  url: https://www.dronedeploy.com/get-started
+plans:
+  - id: drone-deploy-flight-and-analysis
+    name: Flight & Analysis
+    type: subscription
+    description: Individual-pilot annual plan for aerial flight, mapping, and analysis.
+    entries:
+      - label: Annual seat
+        name: seat
+        type: recurring
+        metric: user
+        limit: 1
+        timeFrame: year
+        geo: US
+        unit: 1
+        price: '4188.00'
+        userMultiplied: false
+      - label: Images per map (cap)
+        name: images_per_map
+        type: included
+        metric: image
+        limit: 3000
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    features:
+      - Single admin user license
+      - Email and live chat support
+      - Aerial flight automation, orthos, 3D models
+      - Ground capture processing not included
+  - id: drone-deploy-ag-lite
+    name: Ag Lite
+    type: subscription
+    description: Entry-level annual plan for agriculture pilots.
+    entries:
+      - label: Annual seat
+        name: seat
+        type: recurring
+        metric: user
+        limit: 1
+        timeFrame: year
+        geo: US
+        unit: 1
+        price: '1908.00'
+        userMultiplied: false
+      - label: Images per map (cap)
+        name: images_per_map
+        type: included
+        metric: image
+        limit: 1000
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    features:
+      - Single pilot license
+      - Stand Count analysis
+      - Live Map
+      - Email-based support
+  - id: drone-deploy-advanced-flight-and-analysis
+    name: Advanced Flight & Analysis
+    type: custom-quote
+    description: Quote-based plan with higher image caps and advanced analytics.
+    entries:
+      - label: Annual contract
+        name: contract
+        type: recurring
+        metric: organization
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: 'call'
+        userMultiplied: false
+      - label: Images per map (cap)
+        name: images_per_map
+        type: included
+        metric: image
+        limit: 10000
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    features:
+      - Cut/fill analysis
+      - Thermal imaging
+      - Vertical inspections
+  - id: drone-deploy-unified
+    name: DroneDeploy Unified
+    type: custom-quote
+    description: Enterprise quote-based plan combining aerial, ground, robotics, fixed cameras, and AI add-ons.
+    entries:
+      - label: Annual contract
+        name: contract
+        type: recurring
+        metric: organization
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: 'call'
+        userMultiplied: false
+    features:
+      - Aerial + Ground + Robotics
+      - 360 cameras, fixed cameras, smartphones
+      - Progress AI add-on
+      - Safety AI add-on
+      - Earthworks AI add-on
+      - Dock Automation add-on
+      - Robotic Automation add-on
+      - DroneDeploy Firewall data security add-on
+addons:
+  - id: progress-ai
+    name: Progress AI
+    description: Automated schedule and progress tracking from reality capture.
+    pricing: quote
+  - id: safety-ai
+    name: Safety AI
+    description: Visual hazard detection ranked by severity.
+    pricing: quote
+  - id: earthworks-ai
+    name: Earthworks AI
+    description: Cut/fill volumetric analysis and earthworks progress.
+    pricing: quote
+  - id: dock-automation
+    name: Dock Automation
+    description: Scheduled autonomous flights using DJI Dock 2 / Dock 3.
+    pricing: quote
+  - id: robotic-automation
+    name: Robotic Automation
+    description: Boston Dynamics Spot and other ground robot inspection workflows.
+    pricing: quote
+  - id: dronedeploy-firewall
+    name: DroneDeploy Firewall
+    description: Data-residency and security add-on for sensitive deployments.
+    pricing: quote

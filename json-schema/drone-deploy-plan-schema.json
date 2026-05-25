@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/drone-deploy/main/json-schema/drone-deploy-plan-schema.json",
+  "title": "DroneDeploy Plan",
+  "description": "Schema describing a DroneDeploy Plan (and the MapPlan specialisation) as exposed by the DroneDeploy GraphQL API at https://www.dronedeploy.com/graphql.",
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Opaque global GraphQL ID, prefixed by the concrete type. Example: MapPlan:5a0ddee5a6b7d90aecdc2f1d."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the plan."
+    },
+    "dateCreation": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the plan was created."
+    },
+    "geometry": {
+      "$ref": "#/$defs/LatLng",
+      "description": "Geometric centroid of the plan's flight area."
+    },
+    "location": {
+      "$ref": "#/$defs/LatLng",
+      "description": "Stored location for the plan."
+    },
+    "status": {
+      "type": "string",
+      "description": "MapPlan-only field. Current processing status of the map."
+    }
+  },
+  "$defs": {
+    "LatLng": {
+      "type": "object",
+      "required": ["lat", "lng"],
+      "properties": {
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lng": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        }
+      }
+    }
+  }
+}

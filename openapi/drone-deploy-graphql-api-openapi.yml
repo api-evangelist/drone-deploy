@@ -1,0 +1,337 @@
+openapi: 3.1.0
+info:
+  title: DroneDeploy GraphQL API
+  description: >
+    DroneDeploy's public GraphQL API exposes the DroneDeploy reality-capture
+    platform (aerial photogrammetry, ground 360 capture, robotics, exports)
+    through a single POST endpoint at https://www.dronedeploy.com/graphql.
+
+    All requests are GraphQL queries or mutations sent as JSON to /graphql.
+    Forward, cursor-based pagination is used for all one-to-many relationships
+    (Relay-style edges / nodes / pageInfo with hasNextPage and endCursor).
+    Authentication uses an API key passed via the Authorization: Bearer header.
+    API keys are issued by DroneDeploy Support for existing developers or the
+    Sales team for Developer Partner and Enterprise accounts.
+
+    Interactive exploration is available at https://www.dronedeploy.com/graphiql/
+    where logged-in DroneDeploy users can introspect the live schema.
+  version: '2026-05-25'
+  contact:
+    name: DroneDeploy Support
+    url: https://help.dronedeploy.com/hc/en-us
+  license:
+    name: DroneDeploy Master Services Agreement
+    url: https://www.dronedeploy.com/legal/master-services-agreement
+
+servers:
+  - url: https://www.dronedeploy.com
+    description: Production GraphQL endpoint
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: GraphQL
+    description: Single GraphQL endpoint operations
+  - name: Viewer
+    description: Currently authenticated user and organization context
+  - name: Plans
+    description: MapPlan and Plan-variant operations (read)
+  - name: Exports
+    description: Create and fetch exports of plan data layers
+
+paths:
+  /graphql:
+    post:
+      summary: Execute GraphQL Operation
+      description: >
+        Execute any GraphQL query, mutation, or introspection request against
+        the DroneDeploy schema. The same endpoint serves the `viewer` query,
+        the `node(id:)` interface, the `plans` connection on an organization,
+        the `exports` connection on a MapPlan, and the `createExport` mutation
+        (and other mutations exposed by the live schema).
+      operationId: executeGraphQLOperation
+      tags:
+        - GraphQL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraphQLRequest'
+            examples:
+              GetViewer:
+                summary: Fetch the authenticated viewer
+                value:
+                  query: |
+                    query GetViewer {
+                      viewer {
+                        id
+                        username
+                        organization {
+                          id
+                          name
+                        }
+                      }
+                    }
+              GetPlans:
+                summary: Fetch first 50 plans for the organization
+                value:
+                  query: |
+                    query GetPlans {
+                      viewer {
+                        organization {
+                          plans(first: 50) {
+                            pageInfo { hasNextPage endCursor }
+                            edges {
+                              cursor
+                              node {
+                                id
+                                name
+                                geometry { lat lng }
+                                location { lat lng }
+                                dateCreation
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+              GetExports:
+                summary: Fetch exports for a MapPlan
+                value:
+                  query: |
+                    query GetExports($id: ID!) {
+                      node(id: $id) {
+                        ... on MapPlan {
+                          exports(first: 5) {
+                            edges {
+                              node {
+                                id
+                                user { username }
+                                parameters {
+                                  projection
+                                  merge
+                                  contourInterval
+                                  fileFormat
+                                  resolution
+                                }
+                                status
+                                dateCreation
+                                downloadPath
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  variables:
+                    id: 'MapPlan:5a0de0835f1e08eaabc732bd'
+              CreateExport:
+                summary: Create an orthomosaic export
+                value:
+                  query: |
+                    mutation CreateExport($input: CreateExportInput!) {
+                      createExport(input: $input) {
+                        export { id }
+                      }
+                    }
+                  variables:
+                    input:
+                      planId: 'MapPlan:5a0ddee5a6b7d90aecdc2f1d'
+                      parameters:
+                        layer: ORTHOMOSAIC
+      responses:
+        '200':
+          description: GraphQL response (errors are reported in the `errors` array, not via HTTP status)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResponse'
+        '401':
+          description: Missing or invalid Authorization Bearer token
+        '403':
+          description: Authenticated but not authorized for the requested resource
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: >
+        DroneDeploy API key sent as `Authorization: Bearer <api_key>`. Keys
+        are issued by DroneDeploy Support (existing developers) or Sales
+        (Developer Partner / Enterprise accounts). The same key is used for
+        all GraphQL operations and is tied to the issuing user's account.
+  schemas:
+    GraphQLRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: GraphQL query or mutation document
+        operationName:
+          type: string
+          description: Optional operation name when the document contains multiple operations
+        variables:
+          type: object
+          description: Variable values referenced by `$variable` placeholders in the query
+          additionalProperties: true
+    GraphQLResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          description: Result of the GraphQL operation (shape mirrors the query)
+          additionalProperties: true
+        errors:
+          type: array
+          description: GraphQL errors (per spec); present when the operation failed in part or whole
+          items:
+            $ref: '#/components/schemas/GraphQLError'
+        extensions:
+          type: object
+          description: Server-defined extensions to the GraphQL response
+          additionalProperties: true
+    GraphQLError:
+      type: object
+      properties:
+        message:
+          type: string
+        path:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: integer
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              line:
+                type: integer
+              column:
+                type: integer
+        extensions:
+          type: object
+          additionalProperties: true
+    PageInfo:
+      type: object
+      description: Relay-style pagination metadata; cursor-based, forward-only.
+      properties:
+        hasNextPage:
+          type: boolean
+        endCursor:
+          type: string
+    LatLng:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: double
+        lng:
+          type: number
+          format: double
+    Plan:
+      type: object
+      description: Generic Plan. Concrete types include MapPlan; use inline fragments to access type-specific fields.
+      properties:
+        id:
+          type: string
+          description: Opaque global ID, e.g. `MapPlan:5a0ddee5a6b7d90aecdc2f1d`
+        name:
+          type: string
+        geometry:
+          $ref: '#/components/schemas/LatLng'
+        location:
+          $ref: '#/components/schemas/LatLng'
+        dateCreation:
+          type: string
+          format: date-time
+    MapPlan:
+      allOf:
+        - $ref: '#/components/schemas/Plan'
+        - type: object
+          properties:
+            status:
+              type: string
+              description: Processing status of the map plan
+            exports:
+              type: object
+              description: Cursor-paginated connection to Exports for this plan
+    Export:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Opaque global ID, e.g. `Export:5ab169ed8904ec000136eac9`
+        user:
+          type: object
+          properties:
+            username:
+              type: string
+        parameters:
+          $ref: '#/components/schemas/ExportParameters'
+        status:
+          type: string
+          enum:
+            - PROCESSING
+            - COMPLETE
+            - FAILED
+        dateCreation:
+          type: string
+          format: date-time
+        downloadPath:
+          type: string
+          nullable: true
+          description: Populated when `status` is COMPLETE
+    ExportParameters:
+      type: object
+      properties:
+        layer:
+          type: string
+          description: Required input on create; the data layer to export
+          enum:
+            - ORTHOMOSAIC
+            - ELEVATION
+            - PLANT_HEALTH
+            - POINT_CLOUD
+            - CONTOUR
+            - REPORT
+        projection:
+          type: string
+        merge:
+          type: boolean
+        contourInterval:
+          type: number
+        fileFormat:
+          type: string
+          examples:
+            - GEOTIFF
+            - PDF
+            - SHP
+        resolution:
+          type: number
+    Viewer:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        organization:
+          $ref: '#/components/schemas/Organization'
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        plans:
+          type: object
+          description: Cursor-paginated connection to Plans owned by the organization

@@ -1,0 +1,83 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: DroneDeploy
+providerId: drone-deploy
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: false
+tags:
+  - FinOps
+  - FOCUS
+  - Drones
+  - Reality Capture
+description: FOCUS-aligned FinOps definition for the DroneDeploy reality-capture platform. DroneDeploy is
+  subscription-priced (annual seats plus quote-based enterprise contracts), with Usage Metrics tracked as
+  Users, Sites, and Construction Volume per the Master Services Agreement. Add-ons (Progress AI, Safety AI,
+  Earthworks AI, Dock Automation, Robotic Automation, DroneDeploy Firewall) are billed as separate quoted
+  line items. There is no per-API-request metered pricing surface.
+sources:
+  - https://www.dronedeploy.com/pricing
+  - https://www.dronedeploy.com/legal/master-services-agreement
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: DroneDeploy
+serviceCategory: Geospatial and Reality Capture
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Annual
+  billingCurrency: USD
+  chargeCategories:
+    - Subscription
+    - Usage
+    - Tax
+    - Credit
+    - Adjustment
+  primaryUnit: user
+  secondaryUnits:
+    - site
+    - construction_volume_unit
+    - image
+focusColumns:
+  ServiceName: DroneDeploy
+  ServiceCategory: Geospatial and Reality Capture
+  ProviderName: DroneDeploy
+  PublisherName: DroneDeploy
+  InvoiceIssuerName: DroneDeploy
+  PricingCategory: Subscription
+  PricingUnit: seat-year
+  BillingCurrency: USD
+meters:
+  - name: seats
+    unit: user
+    aggregation: max
+    dimensions:
+      - plan
+      - role
+  - name: sites
+    unit: site
+    aggregation: max
+    dimensions:
+      - plan
+      - region
+  - name: construction_volume
+    unit: construction_volume_unit
+    aggregation: sum
+    dimensions:
+      - plan
+      - site
+  - name: images_uploaded
+    unit: image
+    aggregation: sum
+    dimensions:
+      - plan
+      - map
+notes:
+  - DroneDeploy does not currently expose a programmatic Usage / Cost API equivalent to the cloud
+    hyperscalers; cost reporting is delivered through account management and the customer portal.
+  - Image-per-map caps (1,000 / 3,000 / 10,000 by plan) function as a soft consumption ceiling rather than
+    a metered overage line.
