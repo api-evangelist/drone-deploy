@@ -30,18 +30,15 @@ apis:
     type: JSONSchema
   - url: json-ld/drone-deploy-context.jsonld
     type: JSONLD
-  - type: NaftikoCapability
-    url: capabilities/graphql-plans.yaml
-  - type: NaftikoCapability
-    url: capabilities/graphql-exports.yaml
-  - type: NaftikoCapability
-    url: capabilities/graphql-viewer.yaml
-  description: DroneDeploy's GraphQL API is the primary programmatic interface for the DroneDeploy reality-capture
-    platform. A single POST endpoint at https://www.dronedeploy.com/graphql exposes a strongly-typed schema rooted
-    at the `viewer` object that gives the authenticated user access to organizations, plans (MapPlan and other
-    Plan variants), exports, layers, geometry, and processing status. Forward, cursor-based pagination via
-    Relay-style edges/nodes/pageInfo. Authenticated with `Authorization Bearer` API keys obtained from
-    DroneDeploy Support or via a Developer Partner / Enterprise account.
+  - url: graphql/drone-deploy-graphql.md
+    type: GraphQL
+  description: >-
+    DroneDeploy's GraphQL API is the primary programmatic interface for the DroneDeploy reality-capture platform. A
+    single POST endpoint at https://www.dronedeploy.com/graphql exposes a strongly-typed schema rooted at the `viewer`
+    object that gives the authenticated user access to organizations, plans (MapPlan and other Plan variants),
+    exports, layers, geometry, and processing status. Forward, cursor-based pagination via Relay-style
+    edges/nodes/pageInfo. Authenticated with `Authorization Bearer` API keys obtained from DroneDeploy Support or via
+    a Developer Partner / Enterprise account.
 - aid: drone-deploy:drone-deploy-apps-platform
   name: DroneDeploy Apps Platform
   tags:
@@ -61,10 +58,11 @@ apis:
     type: CodeRepository
   - url: https://github.com/dronedeploy/function-wrapper
     type: SDK
-  description: The DroneDeploy Apps Platform lets third parties build embedded apps and serverless "functions"
-    that run inside the DroneDeploy web application and the DroneDeploy App Market. Apps consume the GraphQL API
-    on behalf of the signed-in user, can register OAuth2 flows via the oauth-function-template, and are surfaced
-    in the App Market across construction, agriculture, mining, utilities, and renewable energy verticals.
+  description: >-
+    The DroneDeploy Apps Platform lets third parties build embedded apps and serverless "functions" that run inside
+    the DroneDeploy web application and the DroneDeploy App Market. Apps consume the GraphQL API on behalf of the
+    signed-in user, can register OAuth2 flows via the oauth-function-template, and are surfaced in the App Market
+    across construction, agriculture, mining, utilities, and renewable energy verticals.
 - aid: drone-deploy:drone-deploy-flight-log-parser
   name: DroneDeploy Flight Log Parser
   tags:
@@ -77,8 +75,9 @@ apis:
     type: CodeRepository
   - url: https://www.npmjs.com/package/flight-log-parser
     type: SDK
-  description: Open-source JavaScript/TypeScript library for parsing DroneDeploy flight log files (the .csv/.json
-    telemetry files emitted by the DroneDeploy Flight App). MIT-licensed, maintained on GitHub.
+  description: >-
+    Open-source JavaScript/TypeScript library for parsing DroneDeploy flight log files (the .csv/.json telemetry files
+    emitted by the DroneDeploy Flight App). MIT-licensed, maintained on GitHub.
 tags:
 - Drones
 - Reality Capture
@@ -227,8 +226,9 @@ common:
   - GraphQL API at https://www.dronedeploy.com/graphql with strongly-typed schema and Relay-style cursor pagination
   - GraphiQL interactive explorer at https://www.dronedeploy.com/graphiql/
   - Apps Platform with OAuth2 templates and serverless function model
-  - DroneDeploy App Market with 40+ integration partners (Procore, Autodesk Construction Cloud, ArcGIS, S3,
-    Google Drive, OneDrive, Box, Azure, Climate FieldView)
+  - >-
+    DroneDeploy App Market with 40+ integration partners (Procore, Autodesk Construction Cloud, ArcGIS, S3, Google
+    Drive, OneDrive, Box, Azure, Climate FieldView)
   - 14-day free trial, no credit card required
   - Operates across 3M+ sites in 180 countries; 2.8B+ images processed
   sources:
@@ -241,14 +241,15 @@ common:
 created: '2026-05-25'
 modified: '2026-05-25'
 position: Consuming
-description: DroneDeploy is the unified reality-capture platform for construction, agriculture, mining, energy,
-  oil & gas, and inspection workflows. Founded in 2013 and headquartered in San Francisco, DroneDeploy combines
-  aerial drone mapping, ground 360 capture, robotics (DJI Dock, Boston Dynamics Spot), and vision-language AI
-  (Progress AI, Safety AI, Earthworks AI) into a single platform that operates across 3M+ sites in 180 countries
-  and has processed 2.8B+ images. Developers integrate via a GraphQL API at https://www.dronedeploy.com/graphql,
-  an Apps Platform with OAuth2 templates that embed third-party apps into the DroneDeploy web application, and
-  a 40+ partner App Market spanning construction (Procore, Autodesk Construction Cloud, PlanGrid), GIS (ArcGIS,
-  Mapbox), cloud storage (S3, Google Drive, OneDrive, Box, Azure), and agriculture (Climate FieldView).
+description: >-
+  DroneDeploy is the unified reality-capture platform for construction, agriculture, mining, energy, oil & gas, and
+  inspection workflows. Founded in 2013 and headquartered in San Francisco, DroneDeploy combines aerial drone mapping,
+  ground 360 capture, robotics (DJI Dock, Boston Dynamics Spot), and vision-language AI (Progress AI, Safety AI,
+  Earthworks AI) into a single platform that operates across 3M+ sites in 180 countries and has processed 2.8B+ images.
+  Developers integrate via a GraphQL API at https://www.dronedeploy.com/graphql, an Apps Platform with OAuth2 templates
+  that embed third-party apps into the DroneDeploy web application, and a 40+ partner App Market spanning construction
+  (Procore, Autodesk Construction Cloud, PlanGrid), GIS (ArcGIS, Mapbox), cloud storage (S3, Google Drive, OneDrive,
+  Box, Azure), and agriculture (Climate FieldView).
 maintainers:
 - FN: Kin Lane
   email: info@apievangelist.com
