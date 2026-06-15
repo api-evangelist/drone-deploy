@@ -1,0 +1,264 @@
+{
+  "item": [
+    {
+      "id": "c9d7b42e-aab5-43c0-bb31-d4bef6fae400",
+      "name": "GraphQL",
+      "description": {
+        "content": "Single GraphQL endpoint operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf1112a0-a6d4-412e-87ca-565cde20ed3b",
+          "name": "Execute GraphQL Operation",
+          "request": {
+            "name": "Execute GraphQL Operation",
+            "description": {
+              "content": "Execute any GraphQL query, mutation, or introspection request against the DroneDeploy schema. The same endpoint serves the `viewer` query, the `node(id:)` interface, the `plans` connection on an organization, the `exports` connection on a MapPlan, and the `createExport` mutation (and other mutations exposed by the live schema).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "graphql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"operationName\": \"<string>\",\n  \"variables\": {\n    \"key_0\": \"string\",\n    \"key_1\": 6362,\n    \"key_2\": 6929\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84779de8-85cc-4e8f-a132-1a59035188d9",
+              "name": "GraphQL response (errors are reported in the `errors` array, not via HTTP status)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query GetViewer {\\n  viewer {\\n    id\\n    username\\n    organization {\\n      id\\n      name\\n    }\\n  }\\n}\\n\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"key_0\": 2194\n  },\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locations\": [\n        {\n          \"line\": 580,\n          \"column\": 78\n        },\n        {\n          \"line\": 8698,\n          \"column\": 6878\n        }\n      ],\n      \"extensions\": {\n        \"key_0\": 9268,\n        \"key_1\": true\n      }\n    },\n    {\n      \"message\": \"string\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locations\": [\n        {\n          \"line\": 4744,\n          \"column\": 457\n        },\n        {\n          \"line\": 9134,\n          \"column\": 1159\n        }\n      ],\n      \"extensions\": {\n        \"key_0\": \"string\",\n        \"key_1\": 1402\n      }\n    }\n  ],\n  \"extensions\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c885ac8c-e670-4cf5-9a84-1ad31e75e573",
+              "name": "Missing or invalid Authorization Bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query GetViewer {\\n  viewer {\\n    id\\n    username\\n    organization {\\n      id\\n      name\\n    }\\n  }\\n}\\n\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a300af46-0c3a-4d94-90e4-e0c8ad347687",
+              "name": "Authenticated but not authorized for the requested resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query GetViewer {\\n  viewer {\\n    id\\n    username\\n    organization {\\n      id\\n      name\\n    }\\n  }\\n}\\n\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ff3f1fd1-61e9-4581-abfd-767149077977",
+      "name": "Viewer",
+      "description": {
+        "content": "Currently authenticated user and organization context",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "fb1b2033-ac1d-4173-8cbb-801188407d86",
+      "name": "Plans",
+      "description": {
+        "content": "MapPlan and Plan-variant operations (read)",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "38f4b169-0335-42cc-b877-14295302e563",
+      "name": "Exports",
+      "description": {
+        "content": "Create and fetch exports of plan data layers",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.dronedeploy.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "405e45da-4523-4286-98b5-472da2ee1903",
+    "name": "DroneDeploy GraphQL API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DroneDeploy's public GraphQL API exposes the DroneDeploy reality-capture platform (aerial photogrammetry, ground 360 capture, robotics, exports) through a single POST endpoint at https://www.dronedeploy.com/graphql.\nAll requests are GraphQL queries or mutations sent as JSON to /graphql. Forward, cursor-based pagination is used for all one-to-many relationships (Relay-style edges / nodes / pageInfo with hasNextPage and endCursor). Authentication uses an API key passed via the Authorization: Bearer header. API keys are issued by DroneDeploy Support for existing developers or the Sales team for Developer Partner and Enterprise accounts.\nInteractive exploration is available at https://www.dronedeploy.com/graphiql/ where logged-in DroneDeploy users can introspect the live schema.\n\n\nContact Support:\n Name: DroneDeploy Support",
+      "type": "text/plain"
+    }
+  }
+}

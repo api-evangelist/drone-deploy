@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DroneDeploy GraphQL API",
+    "version": "2026-05-25"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GraphQL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute GraphQL Operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://www.dronedeploy.com/graphql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute any GraphQL query, mutation, or introspection request against the DroneDeploy schema. The same endpoint serves the `viewer` query, the `node(id:)` interface, the `plans` connection on an organization, the `exports` connection on a MapPlan, and the `createExport` mutation (and other mutations exposed by the live schema).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
