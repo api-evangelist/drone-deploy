@@ -57,7 +57,7 @@ apis:
   - url: https://github.com/dronedeploy/oauth-function-template
     type: CodeRepository
   - url: https://github.com/dronedeploy/function-wrapper
-    type: SDK
+    type: SDKs
   description: >-
     The DroneDeploy Apps Platform lets third parties build embedded apps and serverless "functions" that run inside
     the DroneDeploy web application and the DroneDeploy App Market. Apps consume the GraphQL API on behalf of the
@@ -74,7 +74,7 @@ apis:
   - url: https://github.com/dronedeploy/flight-log-parser
     type: CodeRepository
   - url: https://www.npmjs.com/package/flight-log-parser
-    type: SDK
+    type: SDKs
   description: >-
     Open-source JavaScript/TypeScript library for parsing DroneDeploy flight log files (the .csv/.json telemetry files
     emitted by the DroneDeploy Flight App). MIT-licensed, maintained on GitHub.
@@ -107,7 +107,7 @@ common:
   url: https://www.dronedeploy.com/graphiql/
 - type: StatusPage
   url: https://status.dronedeploy.com
-- type: SignUp
+- type: Signup
   url: https://www.dronedeploy.com/get-started
 - type: Login
   url: https://www.dronedeploy.com/app2/auth/signin
