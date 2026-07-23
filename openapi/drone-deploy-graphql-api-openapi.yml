@@ -1,20 +1,13 @@
 openapi: 3.1.0
 info:
   title: DroneDeploy GraphQL API
-  description: >
-    DroneDeploy's public GraphQL API exposes the DroneDeploy reality-capture
-    platform (aerial photogrammetry, ground 360 capture, robotics, exports)
-    through a single POST endpoint at https://www.dronedeploy.com/graphql.
+  description: 'DroneDeploy''s public GraphQL API exposes the DroneDeploy reality-capture platform (aerial photogrammetry, ground 360 capture, robotics, exports) through a single POST endpoint at https://www.dronedeploy.com/graphql.
 
-    All requests are GraphQL queries or mutations sent as JSON to /graphql.
-    Forward, cursor-based pagination is used for all one-to-many relationships
-    (Relay-style edges / nodes / pageInfo with hasNextPage and endCursor).
-    Authentication uses an API key passed via the Authorization: Bearer header.
-    API keys are issued by DroneDeploy Support for existing developers or the
-    Sales team for Developer Partner and Enterprise accounts.
+    All requests are GraphQL queries or mutations sent as JSON to /graphql. Forward, cursor-based pagination is used for all one-to-many relationships (Relay-style edges / nodes / pageInfo with hasNextPage and endCursor). Authentication uses an API key passed via the Authorization: Bearer header. API keys are issued by DroneDeploy Support for existing developers or the Sales team for Developer Partner and Enterprise accounts.
 
-    Interactive exploration is available at https://www.dronedeploy.com/graphiql/
-    where logged-in DroneDeploy users can introspect the live schema.
+    Interactive exploration is available at https://www.dronedeploy.com/graphiql/ where logged-in DroneDeploy users can introspect the live schema.
+
+    '
   version: '2026-05-25'
   contact:
     name: DroneDeploy Support
@@ -22,37 +15,24 @@ info:
   license:
     name: DroneDeploy Master Services Agreement
     url: https://www.dronedeploy.com/legal/master-services-agreement
-
 servers:
-  - url: https://www.dronedeploy.com
-    description: Production GraphQL endpoint
-
+- url: https://www.dronedeploy.com
+  description: Production GraphQL endpoint
 security:
-  - BearerAuth: []
-
+- BearerAuth: []
 tags:
-  - name: GraphQL
-    description: Single GraphQL endpoint operations
-  - name: Viewer
-    description: Currently authenticated user and organization context
-  - name: Plans
-    description: MapPlan and Plan-variant operations (read)
-  - name: Exports
-    description: Create and fetch exports of plan data layers
-
+- name: GraphQL
+  description: Single GraphQL endpoint operations
 paths:
   /graphql:
     post:
       summary: Execute GraphQL Operation
-      description: >
-        Execute any GraphQL query, mutation, or introspection request against
-        the DroneDeploy schema. The same endpoint serves the `viewer` query,
-        the `node(id:)` interface, the `plans` connection on an organization,
-        the `exports` connection on a MapPlan, and the `createExport` mutation
-        (and other mutations exposed by the live schema).
+      description: 'Execute any GraphQL query, mutation, or introspection request against the DroneDeploy schema. The same endpoint serves the `viewer` query, the `node(id:)` interface, the `plans` connection on an organization, the `exports` connection on a MapPlan, and the `createExport` mutation (and other mutations exposed by the live schema).
+
+        '
       operationId: executeGraphQLOperation
       tags:
-        - GraphQL
+      - GraphQL
       requestBody:
         required: true
         content:
@@ -63,82 +43,24 @@ paths:
               GetViewer:
                 summary: Fetch the authenticated viewer
                 value:
-                  query: |
-                    query GetViewer {
-                      viewer {
-                        id
-                        username
-                        organization {
-                          id
-                          name
-                        }
-                      }
-                    }
+                  query: "query GetViewer {\n  viewer {\n    id\n    username\n    organization {\n      id\n      name\n    }\n  }\n}\n"
               GetPlans:
                 summary: Fetch first 50 plans for the organization
                 value:
-                  query: |
-                    query GetPlans {
-                      viewer {
-                        organization {
-                          plans(first: 50) {
-                            pageInfo { hasNextPage endCursor }
-                            edges {
-                              cursor
-                              node {
-                                id
-                                name
-                                geometry { lat lng }
-                                location { lat lng }
-                                dateCreation
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
+                  query: "query GetPlans {\n  viewer {\n    organization {\n      plans(first: 50) {\n        pageInfo { hasNextPage endCursor }\n        edges {\n          cursor\n          node {\n            id\n            name\n            geometry { lat lng }\n            location { lat lng }\n            dateCreation\n          }\n        }\n      }\n    }\n  }\n}\n"
               GetExports:
                 summary: Fetch exports for a MapPlan
                 value:
-                  query: |
-                    query GetExports($id: ID!) {
-                      node(id: $id) {
-                        ... on MapPlan {
-                          exports(first: 5) {
-                            edges {
-                              node {
-                                id
-                                user { username }
-                                parameters {
-                                  projection
-                                  merge
-                                  contourInterval
-                                  fileFormat
-                                  resolution
-                                }
-                                status
-                                dateCreation
-                                downloadPath
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
+                  query: "query GetExports($id: ID!) {\n  node(id: $id) {\n    ... on MapPlan {\n      exports(first: 5) {\n        edges {\n          node {\n            id\n            user { username }\n            parameters {\n              projection\n              merge\n              contourInterval\n              fileFormat\n              resolution\n            }\n            status\n            dateCreation\n            downloadPath\n          }\n        }\n      }\n    }\n  }\n}\n"
                   variables:
-                    id: 'MapPlan:5a0de0835f1e08eaabc732bd'
+                    id: MapPlan:5a0de0835f1e08eaabc732bd
               CreateExport:
                 summary: Create an orthomosaic export
                 value:
-                  query: |
-                    mutation CreateExport($input: CreateExportInput!) {
-                      createExport(input: $input) {
-                        export { id }
-                      }
-                    }
+                  query: "mutation CreateExport($input: CreateExportInput!) {\n  createExport(input: $input) {\n    export { id }\n  }\n}\n"
                   variables:
                     input:
-                      planId: 'MapPlan:5a0ddee5a6b7d90aecdc2f1d'
+                      planId: MapPlan:5a0ddee5a6b7d90aecdc2f1d
                       parameters:
                         layer: ORTHOMOSAIC
       responses:
@@ -152,23 +74,12 @@ paths:
           description: Missing or invalid Authorization Bearer token
         '403':
           description: Authenticated but not authorized for the requested resource
-
 components:
-  securitySchemes:
-    BearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: API Key
-      description: >
-        DroneDeploy API key sent as `Authorization: Bearer <api_key>`. Keys
-        are issued by DroneDeploy Support (existing developers) or Sales
-        (Developer Partner / Enterprise accounts). The same key is used for
-        all GraphQL operations and is tied to the issuing user's account.
   schemas:
     GraphQLRequest:
       type: object
       required:
-        - query
+      - query
       properties:
         query:
           type: string
@@ -205,8 +116,8 @@ components:
           type: array
           items:
             oneOf:
-              - type: string
-              - type: integer
+            - type: string
+            - type: integer
         locations:
           type: array
           items:
@@ -219,119 +130,11 @@ components:
         extensions:
           type: object
           additionalProperties: true
-    PageInfo:
-      type: object
-      description: Relay-style pagination metadata; cursor-based, forward-only.
-      properties:
-        hasNextPage:
-          type: boolean
-        endCursor:
-          type: string
-    LatLng:
-      type: object
-      properties:
-        lat:
-          type: number
-          format: double
-        lng:
-          type: number
-          format: double
-    Plan:
-      type: object
-      description: Generic Plan. Concrete types include MapPlan; use inline fragments to access type-specific fields.
-      properties:
-        id:
-          type: string
-          description: Opaque global ID, e.g. `MapPlan:5a0ddee5a6b7d90aecdc2f1d`
-        name:
-          type: string
-        geometry:
-          $ref: '#/components/schemas/LatLng'
-        location:
-          $ref: '#/components/schemas/LatLng'
-        dateCreation:
-          type: string
-          format: date-time
-    MapPlan:
-      allOf:
-        - $ref: '#/components/schemas/Plan'
-        - type: object
-          properties:
-            status:
-              type: string
-              description: Processing status of the map plan
-            exports:
-              type: object
-              description: Cursor-paginated connection to Exports for this plan
-    Export:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Opaque global ID, e.g. `Export:5ab169ed8904ec000136eac9`
-        user:
-          type: object
-          properties:
-            username:
-              type: string
-        parameters:
-          $ref: '#/components/schemas/ExportParameters'
-        status:
-          type: string
-          enum:
-            - PROCESSING
-            - COMPLETE
-            - FAILED
-        dateCreation:
-          type: string
-          format: date-time
-        downloadPath:
-          type: string
-          nullable: true
-          description: Populated when `status` is COMPLETE
-    ExportParameters:
-      type: object
-      properties:
-        layer:
-          type: string
-          description: Required input on create; the data layer to export
-          enum:
-            - ORTHOMOSAIC
-            - ELEVATION
-            - PLANT_HEALTH
-            - POINT_CLOUD
-            - CONTOUR
-            - REPORT
-        projection:
-          type: string
-        merge:
-          type: boolean
-        contourInterval:
-          type: number
-        fileFormat:
-          type: string
-          examples:
-            - GEOTIFF
-            - PDF
-            - SHP
-        resolution:
-          type: number
-    Viewer:
-      type: object
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        organization:
-          $ref: '#/components/schemas/Organization'
-    Organization:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        plans:
-          type: object
-          description: Cursor-paginated connection to Plans owned by the organization
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: 'DroneDeploy API key sent as `Authorization: Bearer <api_key>`. Keys are issued by DroneDeploy Support (existing developers) or Sales (Developer Partner / Enterprise accounts). The same key is used for all GraphQL operations and is tied to the issuing user''s account.
+
+        '
