@@ -1,0 +1,234 @@
+{
+  "info": {
+    "_postman_id": "631e93f0-5a10-4860-938b-dd9daf1bbd91",
+    "name": "DroneDeploy GraphQL API",
+    "description": "DroneDeploy's public GraphQL API exposes the DroneDeploy reality-capture platform (aerial photogrammetry, ground 360 capture, robotics, exports) through a single POST endpoint at https://www.dronedeploy.com/graphql.\nAll requests are GraphQL queries or mutations sent as JSON to /graphql. Forward, cursor-based pagination is used for all one-to-many relationships (Relay-style edges / nodes / pageInfo with hasNextPage and endCursor). Authentication uses an API key passed via the Authorization: Bearer header. API keys are issued by DroneDeploy Support for existing developers or the Sales team for Developer Partner and Enterprise accounts.\nInteractive exploration is available at https://www.dronedeploy.com/graphiql/ where logged-in DroneDeploy users can introspect the live schema.\n\n\nContact Support:\n Name: DroneDeploy Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:32:39.000Z",
+    "updatedAt": "2026-07-28T01:32:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-631e93f0-5a10-4860-938b-dd9daf1bbd91"
+  },
+  "item": [
+    {
+      "name": "graphql",
+      "item": [
+        {
+          "name": "Execute GraphQL Operation",
+          "id": "1f87bc9b-0b36-48cc-bbf7-5c91047ef253",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"operationName\": \"<string>\",\n  \"variables\": {\n    \"in78\": \"nostrud nulla ad dolore labore\",\n    \"non_0\": \"occaecat\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "graphql"
+              ]
+            },
+            "description": "Execute any GraphQL query, mutation, or introspection request against the DroneDeploy schema. The same endpoint serves the `viewer` query, the `node(id:)` interface, the `plans` connection on an organization, the `exports` connection on a MapPlan, and the `createExport` mutation (and other mutations exposed by the live schema).\n"
+          },
+          "response": [
+            {
+              "id": "6c3e1f82-dab6-4f9c-95b0-a9871ad37f08",
+              "name": "GraphQL response (errors are reported in the `errors` array, not via HTTP status)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"operationName\": \"<string>\",\n  \"variables\": {\n    \"in78\": \"nostrud nulla ad dolore labore\",\n    \"non_0\": \"occaecat\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/graphql",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "graphql"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"do_cd\": \"amet dolore occaecat Lorem\",\n    \"adf01\": \"do c\",\n    \"anim436\": \"aute dolore proid\"\n  },\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"locations\": [\n        {\n          \"line\": \"<integer>\",\n          \"column\": \"<integer>\"\n        },\n        {\n          \"line\": \"<integer>\",\n          \"column\": \"<integer>\"\n        }\n      ],\n      \"extensions\": {\n        \"euc\": \"officia Duis labore mollit enim\",\n        \"incididunt_157\": false,\n        \"dolorebbb\": 24199557\n      }\n    },\n    {\n      \"message\": \"<string>\",\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"locations\": [\n        {\n          \"line\": \"<integer>\",\n          \"column\": \"<integer>\"\n        },\n        {\n          \"line\": \"<integer>\",\n          \"column\": \"<integer>\"\n        }\n      ],\n      \"extensions\": {\n        \"irure1\": 59948035.44946036,\n        \"ipsum__9\": \"ea velit culpa est\",\n        \"mollit4\": 26903469.077126056,\n        \"velit368\": 91695767\n      }\n    }\n  ],\n  \"extensions\": {\n    \"dolore4\": -72352\n  }\n}",
+              "createdAt": "2026-07-28T01:32:39.000Z",
+              "updatedAt": "2026-07-28T01:32:39.000Z",
+              "uid": "35240-6c3e1f82-dab6-4f9c-95b0-a9871ad37f08"
+            },
+            {
+              "id": "9567aa62-55df-4157-bc67-2aac26dfef2f",
+              "name": "Missing or invalid Authorization Bearer token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"operationName\": \"<string>\",\n  \"variables\": {\n    \"in78\": \"nostrud nulla ad dolore labore\",\n    \"non_0\": \"occaecat\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/graphql",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "graphql"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:32:39.000Z",
+              "updatedAt": "2026-07-28T01:32:39.000Z",
+              "uid": "35240-9567aa62-55df-4157-bc67-2aac26dfef2f"
+            },
+            {
+              "id": "c4414a97-fb86-44aa-aa6f-b051808a2ca0",
+              "name": "Authenticated but not authorized for the requested resource",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"operationName\": \"<string>\",\n  \"variables\": {\n    \"in78\": \"nostrud nulla ad dolore labore\",\n    \"non_0\": \"occaecat\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/graphql",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "graphql"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:32:39.000Z",
+              "updatedAt": "2026-07-28T01:32:39.000Z",
+              "uid": "35240-c4414a97-fb86-44aa-aa6f-b051808a2ca0"
+            }
+          ],
+          "createdAt": "2026-07-28T01:32:39.000Z",
+          "updatedAt": "2026-07-28T01:32:39.000Z",
+          "uid": "35240-1f87bc9b-0b36-48cc-bbf7-5c91047ef253"
+        }
+      ],
+      "id": "ef6aba5e-d57b-4aae-8672-998f639c71b2",
+      "createdAt": "2026-07-28T01:32:39.000Z",
+      "updatedAt": "2026-07-28T01:32:39.000Z",
+      "uid": "35240-ef6aba5e-d57b-4aae-8672-998f639c71b2"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://www.dronedeploy.com"
+    }
+  ]
+}

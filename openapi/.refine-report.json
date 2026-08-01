@@ -1,0 +1,14 @@
+{
+  "provider": "drone-deploy",
+  "sources": [
+    "drone-deploy-graphql-api-openapi.yml"
+  ],
+  "outputs": [
+    "drone-deploy-graphql-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
