@@ -10,6 +10,13 @@ apis:
   - Mapping
   - GraphQL
   - Plans
+  - Export
+  tags_raw:
+  - Drones
+  - Reality Capture
+  - Mapping
+  - GraphQL
+  - Plans
   - Exports
   humanURL: https://developer-docs.dronedeploy.com/api/introduction
   baseURL: https://www.dronedeploy.com/graphql
@@ -42,6 +49,11 @@ apis:
 - aid: drone-deploy:drone-deploy-apps-platform
   name: DroneDeploy Apps Platform
   tags:
+  - Application
+  - Marketplace
+  - Authentication
+  - Extensions
+  tags_raw:
   - Apps
   - Marketplace
   - OAuth
@@ -79,6 +91,19 @@ apis:
     Open-source JavaScript/TypeScript library for parsing DroneDeploy flight log files (the .csv/.json telemetry files
     emitted by the DroneDeploy Flight App). MIT-licensed, maintained on GitHub.
 tags:
+- Drones
+- Reality Capture
+- Mapping
+- Photogrammetry
+- 3D Models
+- Orthomosaic
+- LiDAR
+- Construction
+- Agriculture
+- Artificial Intelligence
+- Aerial
+- Robotics
+tags_raw:
 - Drones
 - Reality Capture
 - Mapping
